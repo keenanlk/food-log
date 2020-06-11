@@ -1,0 +1,28 @@
+ion-content ion-toolbar {
+  --background: translucent;
+}
+
+.buttons {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.mapgrid {
+  height: 100%;
+  min-height: 300px;
+  max-height: 500px;
+}
+
+// .centercontent {
+//   display: flex !important;
+//   justify-content: center !important;
+//   align-items: center !important;
+//   height: 100%;
+// }

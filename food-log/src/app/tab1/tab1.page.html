@@ -1,0 +1,140 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{ this.displayName }}'s Logs
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ this.displayName }}'s Logs</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="buttons">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button style="display: block;" (click)="presentModal()"
+            >Track your Food</ion-button
+          >
+        </ion-col>
+        <ion-col size="6">
+          <ion-button style="display: block;" [disabled]="true"
+            >Food Statistics</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-card *ngFor="let log of logs" id="{{log.logId}}" tappable>
+    <ion-card-header (click)="showCard(log.logId)">
+      <ion-card-title style="font-size: 20px;"
+        >{{log.date | date: 'short'}}
+        <ion-icon
+          *ngIf="open && log.logId === logId; else up"
+          style="float: right;"
+          name="chevron-down"
+        ></ion-icon
+        ><ng-template #up
+          ><ion-icon
+            name="chevron-up"
+            style="float: right;"
+          ></ion-icon></ng-template
+      ></ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="open && log.logId === logId">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="location"></ion-icon
+            ><ion-text> {{log.location}}</ion-text>
+          </ion-col>
+          <ion-col
+            ><ion-icon name="star"></ion-icon
+            ><ion-text> {{log.rating}}/10</ion-text></ion-col
+          >
+        </ion-row>
+        <ion-row *ngIf="log.comments">
+          <ion-col>
+            <ion-icon name="pencil"></ion-icon> {{log.comments}}
+          </ion-col>
+          <ion-col *ngIf="log.imageURL"
+            ><ion-icon
+              name="image"
+              style="font-size: 40px;"
+              (click)="displayImage(log.imageURL)"
+            ></ion-icon
+          ></ion-col>
+        </ion-row>
+        <!-- <ion-row
+          class="centercontent"
+          *ngIf="log.imageURL"
+          justify-content-center
+          align-items-center
+          style="height: 100%; padding-bottom: 10px;"
+        >
+          <ion-col>
+            Tap to view the image:
+            <ion-icon
+              style="font-size: xx-large; padding-top: 5px;"
+              name="image"
+              (click)="displayImage(log.imageURL)"
+            ></ion-icon>
+          </ion-col>
+        </ion-row> -->
+        <ion-row class="mapgrid">
+          <ion-col>
+            <agm-map
+              class="map"
+              [latitude]="log.lat"
+              [longitude]="log.lng"
+              [zoom]="12"
+              [streetViewControl]="false"
+              ><agm-marker
+                [latitude]="log.lat"
+                [longitude]="log.lng"
+              ></agm-marker>
+            </agm-map>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-list style="margin-top: 10px;">
+    <ion-item *ngFor="let log of logs">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label>Date:</ion-label>
+          </ion-col>
+
+          <ion-col>
+            Location:
+          </ion-col>
+          <ion-col>
+            Rating:
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{log.date | date: 'short'}}</ion-col>
+
+          <ion-col>{{log.location}}</ion-col>
+          <ion-col>{{log.rating}}</ion-col>
+          <ion-col style="text-align: center;"
+            ><ion-icon
+              (click)="showDetail(log)"
+              style="font-size: xx-large;"
+              name="arrow-forward"
+            ></ion-icon
+          ></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list> -->
+</ion-content>

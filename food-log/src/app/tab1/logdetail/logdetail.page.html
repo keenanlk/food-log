@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Log Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-label>Location:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{log.location}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Date:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{log.date | date: 'short'}}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label>Rating:</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>{{log.rating}}/10</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <agm-map class="map" [latitude]="log.lat" [longitude]="log.lng" [zoom]="12">
+    <agm-marker [latitude]="log.lat" [longitude]="log.lng"></agm-marker>
+  </agm-map>
+</ion-content>

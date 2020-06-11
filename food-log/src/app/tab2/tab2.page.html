@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Food Map
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="false" scroll-y="false">
+  <div>
+    <agm-map class="map" [latitude]="lat" [longitude]="lon" [zoom]="12">
+      <agm-marker
+        *ngFor="let log of logs"
+        [latitude]="log.lat"
+        [longitude]="log.lng"
+      >
+        <agm-info-window>
+          <ion-text style="color: black;">{{log.location}}</ion-text>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+</ion-content>
